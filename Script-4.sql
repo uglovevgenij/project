@@ -7,33 +7,33 @@ USE vk;
 SHOW tables;
 
 CREATE TABLE users (
-	id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY, -- UNSIGNED(не будет отрицательным), AUTO_INCREMENT (автоматически заполняется при добавлении строк), PRIMARY KEY (первичный ключ, включающий в себи индексацию и NOT NULL - возможность создать пустое значение)
-	first_name VARCHAR(145) NOT NULL, -- Имя
-	last_name VARCHAR(145) NOT NULL, -- Фамилия
+	id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY, -- UNSIGNED(РЅРµ Р±СѓРґРµС‚ РѕС‚СЂРёС†Р°С‚РµР»СЊРЅС‹Рј), AUTO_INCREMENT (Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё Р·Р°РїРѕР»РЅСЏРµС‚СЃСЏ РїСЂРё РґРѕР±Р°РІР»РµРЅРёРё СЃС‚СЂРѕРє), PRIMARY KEY (РїРµСЂРІРёС‡РЅС‹Р№ РєР»СЋС‡, РІРєР»СЋС‡Р°СЋС‰РёР№ РІ СЃРµР±Рё РёРЅРґРµРєСЃР°С†РёСЋ Рё NOT NULL - РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ СЃРѕР·РґР°С‚СЊ РїСѓСЃС‚РѕРµ Р·РЅР°С‡РµРЅРёРµ)
+	first_name VARCHAR(145) NOT NULL, -- РРјСЏ
+	last_name VARCHAR(145) NOT NULL, -- Р¤Р°РјРёР»РёСЏ
 	email VARCHAR(145) NOT NULL,
 	phone INT UNSIGNED NOT NULL,
-	password_hash CHAR(65) DEFAULT NULL, -- hash - комбинация цифр и букв (fdjkgh34khsd -> catmeow), DEFAULT NULL  - по дефолту 0. NULL - это обозначение пустого значение(неизвестного). Важно знать, что один NULL не равен другому NULL
-	created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, -- (DATETIME - формат датавремя), (CURRENT_TIMESTAMP - берет текущее время и дату при добавлении, аналог NOW())
-	-- UNIQUE INDEX email_unique (email, phone) -- как составной PRIMARY KEY. Индекс срабатывает только когда обе колонки присутствуют в запросе, поэтому сделаем два разных индекса далее
+	password_hash CHAR(65) DEFAULT NULL, -- hash - РєРѕРјР±РёРЅР°С†РёСЏ С†РёС„СЂ Рё Р±СѓРєРІ (fdjkgh34khsd -> catmeow), DEFAULT NULL  - РїРѕ РґРµС„РѕР»С‚Сѓ 0. NULL - СЌС‚Рѕ РѕР±РѕР·РЅР°С‡РµРЅРёРµ РїСѓСЃС‚РѕРіРѕ Р·РЅР°С‡РµРЅРёРµ(РЅРµРёР·РІРµСЃС‚РЅРѕРіРѕ). Р’Р°Р¶РЅРѕ Р·РЅР°С‚СЊ, С‡С‚Рѕ РѕРґРёРЅ NULL РЅРµ СЂР°РІРµРЅ РґСЂСѓРіРѕРјСѓ NULL
+	created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, -- (DATETIME - С„РѕСЂРјР°С‚ РґР°С‚Р°РІСЂРµРјСЏ), (CURRENT_TIMESTAMP - Р±РµСЂРµС‚ С‚РµРєСѓС‰РµРµ РІСЂРµРјСЏ Рё РґР°С‚Сѓ РїСЂРё РґРѕР±Р°РІР»РµРЅРёРё, Р°РЅР°Р»РѕРі NOW())
+	-- UNIQUE INDEX email_unique (email, phone) -- РєР°Рє СЃРѕСЃС‚Р°РІРЅРѕР№ PRIMARY KEY. РРЅРґРµРєСЃ СЃСЂР°Р±Р°С‚С‹РІР°РµС‚ С‚РѕР»СЊРєРѕ РєРѕРіРґР° РѕР±Рµ РєРѕР»РѕРЅРєРё РїСЂРёСЃСѓС‚СЃС‚РІСѓСЋС‚ РІ Р·Р°РїСЂРѕСЃРµ, РїРѕСЌС‚РѕРјСѓ СЃРґРµР»Р°РµРј РґРІР° СЂР°Р·РЅС‹С… РёРЅРґРµРєСЃР° РґР°Р»РµРµ
 	UNIQUE INDEX email_unique (email),
 	UNIQUE INDEX phone_unique (phone)
-) ENGINE=InnoDB; -- InnoDB самый транзакционно безопасный движок
+) ENGINE=InnoDB; -- InnoDB СЃР°РјС‹Р№ С‚СЂР°РЅР·Р°РєС†РёРѕРЅРЅРѕ Р±РµР·РѕРїР°СЃРЅС‹Р№ РґРІРёР¶РѕРє
 
--- SELECT * FROM users; -- просмотр содержимого
+-- SELECT * FROM users; -- РїСЂРѕСЃРјРѕС‚СЂ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ
 
--- DESCRIBE users; -- просмотр характеристик таблицы
+-- DESCRIBE users; -- РїСЂРѕСЃРјРѕС‚СЂ С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРє С‚Р°Р±Р»РёС†С‹
 
-ALTER TABLE users ADD COLUMN passport_number VARCHAR(10); -- ИЗМЕНЯЕМ ТАБЛИЦУ юзерс ДОБАВЛЯЯ КОЛОНКУ номер паспорта
+ALTER TABLE users ADD COLUMN passport_number VARCHAR(10); -- РР—РњР•РќРЇР•Рњ РўРђР‘Р›РР¦РЈ СЋР·РµСЂСЃ Р”РћР‘РђР’Р›РЇРЇ РљРћР›РћРќРљРЈ РЅРѕРјРµСЂ РїР°СЃРїРѕСЂС‚Р°
 
-ALTER TABLE users MODIFY COLUMN passport_number VARCHAR(20); -- ИЗМЕНЯЕМ ТАБЛИЦУ юзерс МОДИФИЦИРУЯ КОЛОНКУ номер паспорта
+ALTER TABLE users MODIFY COLUMN passport_number VARCHAR(20); -- РР—РњР•РќРЇР•Рњ РўРђР‘Р›РР¦РЈ СЋР·РµСЂСЃ РњРћР”РР¤РР¦РР РЈРЇ РљРћР›РћРќРљРЈ РЅРѕРјРµСЂ РїР°СЃРїРѕСЂС‚Р°
 
-ALTER TABLE users RENAME COLUMN passport_number TO passport; -- ... МЕНЯЕМ КОЛОНКУ имя НА имя
+ALTER TABLE users RENAME COLUMN passport_number TO passport; -- ... РњР•РќРЇР•Рњ РљРћР›РћРќРљРЈ РёРјСЏ РќРђ РёРјСЏ
 
-ALTER TABLE users ADD UNIQUE KEY passport_unique (passport); -- ИЗМЕНЯЕМ ТАБЛИЦУ юзерс ДОБАВЛЯЯ УНИКАЛЬНЫЙ КЛЮЧ
+ALTER TABLE users ADD UNIQUE KEY passport_unique (passport); -- РР—РњР•РќРЇР•Рњ РўРђР‘Р›РР¦РЈ СЋР·РµСЂСЃ Р”РћР‘РђР’Р›РЇРЇ РЈРќРРљРђР›Р¬РќР«Р™ РљР›Р®Р§
 
-ALTER TABLE users DROP INDEX passport_unique; -- передумали и удалили индексацию
+ALTER TABLE users DROP INDEX passport_unique; -- РїРµСЂРµРґСѓРјР°Р»Рё Рё СѓРґР°Р»РёР»Рё РёРЅРґРµРєСЃР°С†РёСЋ
 
-ALTER TABLE users DROP COLUMN passport; -- полностью удалили колонку
+ALTER TABLE users DROP COLUMN passport; -- РїРѕР»РЅРѕСЃС‚СЊСЋ СѓРґР°Р»РёР»Рё РєРѕР»РѕРЅРєСѓ
 
 
 SELECT * FROM users;
@@ -41,7 +41,7 @@ SELECT * FROM users;
 DESCRIBE users;
 
 
--- 1:1 связь
+-- 1:1 СЃРІСЏР·СЊ
 CREATE TABLE profiles (
 	user_id BIGINT UNSIGNED NOT NULL,
 	gender ENUM('f', 'm', 'x') NOT NULL, -- char(1)
@@ -51,7 +51,7 @@ CREATE TABLE profiles (
 	city VARCHAR(130),
 	country VARCHAR(130),
 	UNIQUE INDEX fk_profiles_users_to_idx (user_id),
-	CONSTRAINT fk_profiles_users FOREIGN KEY (user_id) REFERENCES users (id) -- FOREIGN KEY используется для связи таблиц
+	CONSTRAINT fk_profiles_users FOREIGN KEY (user_id) REFERENCES users (id) -- FOREIGN KEY РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РґР»СЏ СЃРІСЏР·Рё С‚Р°Р±Р»РёС†
 );
 
 DESCRIBE profiles;
@@ -60,12 +60,12 @@ DESCRIBE profiles;
 -- 1:n
 CREATE TABLE messages (
 	id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, -- 1
-	from_user_id BIGINT UNSIGNED NOT NULL, -- id - 1, Вася
-	to_user_id BIGINT UNSIGNED NOT NULL, -- id 2, Петя
-	txt TEXT NOT NULL, -- txt - ПРИВЕТ
+	from_user_id BIGINT UNSIGNED NOT NULL, -- id - 1, Р’Р°СЃСЏ
+	to_user_id BIGINT UNSIGNED NOT NULL, -- id 2, РџРµС‚СЏ
+	txt TEXT NOT NULL, -- txt - РџР РР’Р•Рў
 	is_delivered BOOLEAN DEFAULT FALSE,
 	created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	updated_at DATETIME DEFAULT CURRENT_TIMESTAMP, -- ON UPDATE CURRENT_TIMESTAMP COMMENT 'Время обновлено',
+	updated_at DATETIME DEFAULT CURRENT_TIMESTAMP, -- ON UPDATE CURRENT_TIMESTAMP COMMENT 'Р’СЂРµРјСЏ РѕР±РЅРѕРІР»РµРЅРѕ',
 	INDEX fk_messages_from_user_idx (from_user_id),
 	INDEX fk_messages_to_user_idx (to_user_id),	
 	CONSTRAINT fk_messages_users_1 FOREIGN KEY (from_user_id) REFERENCES users (id),
@@ -78,8 +78,8 @@ DESCRIBE messages;
 -- n:m
 CREATE TABLE friend_requests (
 	id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, -- 1
-	from_user_id BIGINT UNSIGNED NOT NULL, -- id - 1, Вася
-	to_user_id BIGINT UNSIGNED NOT NULL, -- id 2, Петя
+	from_user_id BIGINT UNSIGNED NOT NULL, -- id - 1, Р’Р°СЃСЏ
+	to_user_id BIGINT UNSIGNED NOT NULL, -- id 2, РџРµС‚СЏ
 	accepted BOOLEAN DEFAULT FALSE,
 	INDEX fk_friend_requests_from_user_idx (from_user_id),
 	INDEX fk_friend_requests_to_user_idx (to_user_id),
@@ -113,7 +113,7 @@ CREATE TABLE communities_users (
 -- 1:n
 CREATE TABLE media_types (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  name varchar(45) NOT NULL -- фото, музыка, доки
+  name varchar(45) NOT NULL -- С„РѕС‚Рѕ, РјСѓР·С‹РєР°, РґРѕРєРё
 ) ENGINE=InnoDB;
 
 CREATE TABLE media (
@@ -131,42 +131,42 @@ CREATE TABLE media (
 
 
 /*
-ПРАКТИЧЕСКОЕ ЗАДАНИЕ.
-Придумать 2-3 таблицы для БД vk, которую мы создали на занятии (с перечнем полей, указанием индексов и внешних ключей). Прислать результат в виде скрипта *.sql.
+РџР РђРљРўРР§Р•РЎРљРћР• Р—РђР”РђРќРР•.
+РџСЂРёРґСѓРјР°С‚СЊ 2-3 С‚Р°Р±Р»РёС†С‹ РґР»СЏ Р‘Р” vk, РєРѕС‚РѕСЂСѓСЋ РјС‹ СЃРѕР·РґР°Р»Рё РЅР° Р·Р°РЅСЏС‚РёРё (СЃ РїРµСЂРµС‡РЅРµРј РїРѕР»РµР№, СѓРєР°Р·Р°РЅРёРµРј РёРЅРґРµРєСЃРѕРІ Рё РІРЅРµС€РЅРёС… РєР»СЋС‡РµР№). РџСЂРёСЃР»Р°С‚СЊ СЂРµР·СѓР»СЊС‚Р°С‚ РІ РІРёРґРµ СЃРєСЂРёРїС‚Р° *.sql.
 
-Возможные таблицы:
-a. Посты пользователя
-b. Лайки на посты пользователей, лайки на медиафайлы
-c. Черный список
-d. Школы, университеты для профиля пользователя
-e. Чаты (на несколько пользователей)
-f. Посты в сообществе
+Р’РѕР·РјРѕР¶РЅС‹Рµ С‚Р°Р±Р»РёС†С‹:
+a. РџРѕСЃС‚С‹ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
+b. Р›Р°Р№РєРё РЅР° РїРѕСЃС‚С‹ РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№, Р»Р°Р№РєРё РЅР° РјРµРґРёР°С„Р°Р№Р»С‹
+c. Р§РµСЂРЅС‹Р№ СЃРїРёСЃРѕРє
+d. РЁРєРѕР»С‹, СѓРЅРёРІРµСЂСЃРёС‚РµС‚С‹ РґР»СЏ РїСЂРѕС„РёР»СЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
+e. Р§Р°С‚С‹ (РЅР° РЅРµСЃРєРѕР»СЊРєРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№)
+f. РџРѕСЃС‚С‹ РІ СЃРѕРѕР±С‰РµСЃС‚РІРµ
 */
 
 CREATE TABLE banlist (
 	id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY, -- id
-	user_id BIGINT UNSIGNED NOT NULL, -- кто в листе
-	ban_type ENUM('temporary', 'permomently') NOT NULL, -- тип блокировки (временный, пожизненный)
-	ban_theme VARCHAR(145) NOT NULL, -- короткое описание бана
-	ban_info TEXT NOT NULL, -- за что посадил (текст)
-	created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, -- когда посадили
-	CONSTRAINT fk_ban_user FOREIGN KEY (user_id) REFERENCES users (id),-- внешний ключ юзера
+	user_id BIGINT UNSIGNED NOT NULL, -- РєС‚Рѕ РІ Р»РёСЃС‚Рµ
+	ban_type ENUM('temporary', 'permomently') NOT NULL, -- С‚РёРї Р±Р»РѕРєРёСЂРѕРІРєРё (РІСЂРµРјРµРЅРЅС‹Р№, РїРѕР¶РёР·РЅРµРЅРЅС‹Р№)
+	ban_theme VARCHAR(145) NOT NULL, -- РєРѕСЂРѕС‚РєРѕРµ РѕРїРёСЃР°РЅРёРµ Р±Р°РЅР°
+	ban_info TEXT NOT NULL, -- Р·Р° С‡С‚Рѕ РїРѕСЃР°РґРёР» (С‚РµРєСЃС‚)
+	created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, -- РєРѕРіРґР° РїРѕСЃР°РґРёР»Рё
+	CONSTRAINT fk_ban_user FOREIGN KEY (user_id) REFERENCES users (id),-- РІРЅРµС€РЅРёР№ РєР»СЋС‡ СЋР·РµСЂР°
 	INDEX fk_user_id_idx (user_id),
 	INDEX fk_ban_theme_idx (ban_theme)
 );
 
-CREATE TABLE blog ( -- стена или микроблог
+CREATE TABLE blog ( -- СЃС‚РµРЅР° РёР»Рё РјРёРєСЂРѕР±Р»РѕРі
 	news_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,-- id
-	user_id BIGINT UNSIGNED NOT NULL, -- кем создано
-	theme VARCHAR(145) NOT NULL,-- заголовок
-	ban_info TEXT NOT NULL, -- текст
-	media_id BIGINT UNSIGNED NOT NULL, -- вложение медиа
-	created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,-- когда создано
-	updated_at DATETIME DEFAULT CURRENT_TIMESTAMP, -- когда отредактировано
-	private_perf ENUM('for_all', 'for_friends') NOT NULL,-- настройки приватности (публичная или для друзей)
-	CONSTRAINT fk_news_creator_id FOREIGN KEY (user_id) REFERENCES users (id), -- внешний ключ создателя
-	CONSTRAINT fk_news_media_id FOREIGN KEY (media_id) REFERENCES media (id), -- внешний ключ медиа
-	INDEX fk_theme_idx (theme), -- поиск по теме
+	user_id BIGINT UNSIGNED NOT NULL, -- РєРµРј СЃРѕР·РґР°РЅРѕ
+	theme VARCHAR(145) NOT NULL,-- Р·Р°РіРѕР»РѕРІРѕРє
+	ban_info TEXT NOT NULL, -- С‚РµРєСЃС‚
+	media_id BIGINT UNSIGNED NOT NULL, -- РІР»РѕР¶РµРЅРёРµ РјРµРґРёР°
+	created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,-- РєРѕРіРґР° СЃРѕР·РґР°РЅРѕ
+	updated_at DATETIME DEFAULT CURRENT_TIMESTAMP, -- РєРѕРіРґР° РѕС‚СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРѕ
+	private_perf ENUM('for_all', 'for_friends') NOT NULL,-- РЅР°СЃС‚СЂРѕР№РєРё РїСЂРёРІР°С‚РЅРѕСЃС‚Рё (РїСѓР±Р»РёС‡РЅР°СЏ РёР»Рё РґР»СЏ РґСЂСѓР·РµР№)
+	CONSTRAINT fk_news_creator_id FOREIGN KEY (user_id) REFERENCES users (id), -- РІРЅРµС€РЅРёР№ РєР»СЋС‡ СЃРѕР·РґР°С‚РµР»СЏ
+	CONSTRAINT fk_news_media_id FOREIGN KEY (media_id) REFERENCES media (id), -- РІРЅРµС€РЅРёР№ РєР»СЋС‡ РјРµРґРёР°
+	INDEX fk_theme_idx (theme), -- РїРѕРёСЃРє РїРѕ С‚РµРјРµ
 	INDEX fk_user_id_idx (user_id)
 );
 
@@ -174,15 +174,15 @@ CREATE TABLE blog ( -- стена или микроблог
 
 /* CREATE TABLE likes (
 	like_id BIGINT UNSIGNED NOT NULL,-- id
-from_user_id-- от кого
-to_user_id-- кому
-from_media_id-- к какому медиа
-created_at-- когда поставили
-CONSTRAINT fk_media_users FOREIGN KEY (user_id) REFERENCES users (id)-- внешний ключ поставившего лайк
+from_user_id-- РѕС‚ РєРѕРіРѕ
+to_user_id-- РєРѕРјСѓ
+from_media_id-- Рє РєР°РєРѕРјСѓ РјРµРґРёР°
+created_at-- РєРѕРіРґР° РїРѕСЃС‚Р°РІРёР»Рё
+CONSTRAINT fk_media_users FOREIGN KEY (user_id) REFERENCES users (id)-- РІРЅРµС€РЅРёР№ РєР»СЋС‡ РїРѕСЃС‚Р°РІРёРІС€РµРіРѕ Р»Р°Р№Рє
 
 
 
 /*
- * Вопросы:
- * в задании я заметил, что почти в каждой таблице стоят индексы. На сколько это важно и обязательно? В лайках, например, я не хочу ставить индекс и считаю, что в моей соцсети не нужно искать лайки.
+ * Р’РѕРїСЂРѕСЃС‹:
+ * РІ Р·Р°РґР°РЅРёРё СЏ Р·Р°РјРµС‚РёР», С‡С‚Рѕ РїРѕС‡С‚Рё РІ РєР°Р¶РґРѕР№ С‚Р°Р±Р»РёС†Рµ СЃС‚РѕСЏС‚ РёРЅРґРµРєСЃС‹. РќР° СЃРєРѕР»СЊРєРѕ СЌС‚Рѕ РІР°Р¶РЅРѕ Рё РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ? Р’ Р»Р°Р№РєР°С…, РЅР°РїСЂРёРјРµСЂ, СЏ РЅРµ С…РѕС‡Сѓ СЃС‚Р°РІРёС‚СЊ РёРЅРґРµРєСЃ Рё СЃС‡РёС‚Р°СЋ, С‡С‚Рѕ РІ РјРѕРµР№ СЃРѕС†СЃРµС‚Рё РЅРµ РЅСѓР¶РЅРѕ РёСЃРєР°С‚СЊ Р»Р°Р№РєРё.
 */
